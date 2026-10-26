@@ -121,7 +121,12 @@ extension/
 ├─ _locales/          en / ja messages.json
 └─ icons/
 tests/
+├─ smoke.js           behaviour tests for content.js (node tests/smoke.js)
+└─ i18n.js            locale / __MSG__ consistency (node tests/i18n.js)
 tools/
+├─ make-icons.ps1     regenerates icons/
+├─ package.ps1        builds dist/shortup-v<version>.zip for the stores
+└─ extension-id.js    derives the extension ID from the manifest key
 ```
 
 ## License

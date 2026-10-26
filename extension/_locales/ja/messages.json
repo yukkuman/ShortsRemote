@@ -26,6 +26,12 @@
   "errNotShorts": {
     "message": "このタブはショート画面ではありません"
   },
+  "errHidden": {
+    "message": "ショートのタブを画面に出してください（隠れていると切り替えられません）"
+  },
+  "errMinimized": {
+    "message": "Chrome が最小化されています。元に戻してください"
+  },
   "errNoTarget": {
     "message": "送り先が見つかりませんでした"
   },

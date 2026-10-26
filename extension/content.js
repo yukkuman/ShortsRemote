@@ -125,6 +125,12 @@
 
   function run(action) {
     if (!isShortsPage()) return { ok: false, reason: 'not-shorts' };
+    // 「次へ / 前へ」は YouTube が「表示中のタブ」でしか有効な動画を切り替えない。
+    // 隠れたタブで呼ぶと反映されず、表示したときに溜まった分がまとめて動いてしまうので、
+    // ここで失敗を返して service worker 側にタブを前面へ切り替えさせる。
+    if ((action === 'next' || action === 'prev') && document.visibilityState === 'hidden') {
+      return { ok: false, reason: 'hidden' };
+    }
     switch (action) {
       case 'next':
         return navigate(1) ? { ok: true } : { ok: false, reason: 'no-target' };

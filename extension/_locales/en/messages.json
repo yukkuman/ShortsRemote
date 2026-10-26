@@ -26,6 +26,12 @@
   "errNotShorts": {
     "message": "This tab is not a Shorts page"
   },
+  "errHidden": {
+    "message": "Show the Shorts tab on screen — a hidden tab cannot advance"
+  },
+  "errMinimized": {
+    "message": "Chrome is minimised — restore the window"
+  },
   "errNoTarget": {
     "message": "No Short to move to"
   },

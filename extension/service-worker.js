@@ -22,12 +22,40 @@ async function dispatch(action) {
     markFailure('?', t('errNoTab'));
     return;
   }
+
+  // 「次へ / 前へ」は YouTube が表示中のタブでしか切り替えないので、
+  // 裏タブなら前面のタブに切り替えてから送る（ウィンドウ自体は前に出さない）。
+  if (action === 'next' || action === 'prev') {
+    const state = await makeVisible(tab);
+    if (!state.ok) {
+      markFailure('!', t(state.reason));
+      return;
+    }
+    if (state.changed) await delay(150);
+  }
+
   const res = await send(tab.id, action);
   if (!res || !res.ok) {
     markFailure('!', describeFailure(res));
     return;
   }
   clearFailure();
+}
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// タブをそのウィンドウの前面タブにする。最小化されている場合だけは
+// ゲームのフォーカスを奪う危険があるので自動で戻さず、エラーにする。
+async function makeVisible(tab) {
+  const win = await chrome.windows.get(tab.windowId).catch(() => null);
+  if (win && win.state === 'minimized') return { ok: false, reason: 'errMinimized' };
+  if (tab.active) return { ok: true, changed: false };
+  try {
+    await chrome.tabs.update(tab.id, { active: true });
+    return { ok: true, changed: true };
+  } catch (_) {
+    return { ok: true, changed: false };
+  }
 }
 
 // ショートを開いているタブを最優先で選ぶ。
@@ -74,6 +102,7 @@ const t = (key, substitutions) => chrome.i18n.getMessage(key, substitutions) || 
 // バッジが消えるのは次に成功したときだけ。詳細はアイコンにマウスを乗せると出る。
 const REASON_KEYS = {
   'not-shorts': 'errNotShorts',
+  'hidden': 'errHidden',
   'no-target': 'errNoTarget',
   'no-video': 'errNoVideo',
   'no-like-button': 'errNoLike',

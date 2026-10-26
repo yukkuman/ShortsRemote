@@ -85,6 +85,7 @@ function makeEnv(options) {
   };
 
   const document = {
+    visibilityState: opts.hidden ? 'hidden' : 'visible',
     querySelector: (selector) => (selector in bySelector ? bySelector[selector] : null),
     querySelectorAll: (selector) =>
       selector === '#shorts-inner-container > .reel-video-in-sequence-new' ? slots : [],
@@ -172,6 +173,16 @@ console.log('ショート画面ではない');
 {
   const env = makeEnv({ shortsPage: false });
   check('not-shorts を返す', env.send('next'), { ok: false, reason: 'not-shorts' });
+}
+
+console.log('裏タブ（非表示）');
+{
+  const env = makeEnv({ hidden: true });
+  check('次は hidden を返す', env.send('next'), { ok: false, reason: 'hidden' });
+  check('前は hidden を返す', env.send('prev'), { ok: false, reason: 'hidden' });
+  check('裏タブではスクロールさせない（溜め込み防止）', env.state().scrollTop, 0);
+  check('再生停止は裏タブでも効く', env.send('toggle'), { ok: true });
+  check('ミュートも効く', env.send('mute'), { ok: true });
 }
 
 console.log('未知のアクション');

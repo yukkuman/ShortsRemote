@@ -95,6 +95,23 @@ content.js          ytd-shorts.loadVideo(...) で1本送る
 | ゲームで特定のキーが効かなくなった | そのキーを ShortUp が横取りしています。別のキーに変えてください |
 | ショートが送られなくなった | YouTube 側の DOM 変更の可能性。`content.js` の `SEL` を更新してください |
 
+## 多言語対応
+
+表示言語は **Chrome の UI 言語に自動で追従**します（切り替え設定はありません）。
+`extension/_locales/` に `ja` と `en` を入れてあり、ブラウザが日本語なら日本語、
+それ以外は英語（`default_locale`）が出ます。対象は次のとおりです。
+
+- 拡張機能の説明（`chrome://extensions` やストア掲載文に出る文）
+- `chrome://extensions/shortcuts` の各コマンド説明
+- 失敗時にアイコンへマウスを乗せたときの理由
+
+言語を足すときは `_locales/<言語コード>/messages.json` を追加するだけです（例: `zh_CN`、`ko`）。
+manifest の `__MSG_xxx__` の綴り間違いや、ロケール間のキー不足は次のテストで検出できます。
+
+```bash
+node tests/i18n.js
+```
+
 ## 開発メモ
 
 - 合成キーイベント（`dispatchEvent(new KeyboardEvent(...))`）は `isTrusted=false` になり、
@@ -112,9 +129,14 @@ extension/
 ├─ manifest.json       commands ×5（うち4つに既定キー、すべて global: true）
 ├─ service-worker.js   コマンド → タブ選択 → sendMessage
 ├─ content.js          DOM 操作（次/前/再生/ミュート/高評価）
+├─ _locales/           en / ja の messages.json
 └─ icons/              icon16/32/48/128.png
+tests/
+├─ smoke.js            content.js の動作テスト（node tests/smoke.js）
+└─ i18n.js             ロケールと __MSG_ 参照の整合チェック（node tests/i18n.js）
 tools/
-└─ make-icons.ps1
+├─ make-icons.ps1      アイコン生成
+└─ extension-id.js     manifest の key から拡張IDを計算
 ```
 
 ## 公開する場合

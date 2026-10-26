@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
   "name": "ShortUp — Shorts Remote",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu+fzqCh0acbLgdvAkEk0BTgfzPZ8SNWr6UP+N0Ufd77yMk4o5+A15lbeqVdYSEFdQek6ithAvp8F6V4sc7tzs6PR02qT5ba7BhBzDO32t/vP5n3WLuP8U4kvwFfOeDk8/jhWp2nS2i8c6wXAPCWcRNKd97hjTA/BtikHbV9mVk0sw056hZqZxNzkFt3pgX8AM5khxhB54Fi2SJGLh6zGq5eyPPtdBNalojkCOItYilug4i/VLevE9TQpzjddwNVMXqcayrWoMxqzh0Dn2Tg4gSZV0tzJDCkxTrvJvOoZnLF5XonoUnLKD9ucHhuXRkeAmN25SZOGR+Nn4VaYW7lKQwIDAQAB",
-  "description": "ゲームをしたまま、グローバルショートカットで YouTube ショートを「次へ / 前へ」送る。",
+  "default_locale": "en",
+  "description": "__MSG_extDesc__",
   "permissions": ["tabs", "scripting"],
   "host_permissions": ["*://*.youtube.com/*"],
   "background": {
@@ -35,26 +36,26 @@
   "commands": {
     "shorts-next": {
       "suggested_key": { "default": "Ctrl+Shift+2" },
-      "description": "次のショートへ",
+      "description": "__MSG_cmdNext__",
       "global": true
     },
     "shorts-prev": {
       "suggested_key": { "default": "Ctrl+Shift+1" },
-      "description": "前のショートへ",
+      "description": "__MSG_cmdPrev__",
       "global": true
     },
     "shorts-toggle": {
       "suggested_key": { "default": "Ctrl+Shift+3" },
-      "description": "再生 / 一時停止",
+      "description": "__MSG_cmdToggle__",
       "global": true
     },
     "shorts-like": {
       "suggested_key": { "default": "Ctrl+Shift+4" },
-      "description": "高評価",
+      "description": "__MSG_cmdLike__",
       "global": true
     },
     "shorts-mute": {
-      "description": "ミュート切替（既定キーなし／chrome://extensions/shortcuts で割当）",
+      "description": "__MSG_cmdMute__",
       "global": true
     }
   }

@@ -19,7 +19,7 @@ chrome.commands.onCommand.addListener((command) => {
 async function dispatch(action) {
   const tab = await pickTab();
   if (!tab) {
-    markFailure('?', 'YouTube のタブが見つかりません');
+    markFailure('?', t('errNoTab'));
     return;
   }
   const res = await send(tab.id, action);
@@ -67,19 +67,23 @@ async function send(tabId, action) {
   }
 }
 
+// 表示言語は Chrome の UI 言語に追従する（_locales/ 配下の messages.json）
+const t = (key, substitutions) => chrome.i18n.getMessage(key, substitutions) || key;
+
 // 失敗はバッジを残して知らせる（ゲーム中は一瞬で消える表示には気づけないため）。
 // バッジが消えるのは次に成功したときだけ。詳細はアイコンにマウスを乗せると出る。
-const REASONS = {
-  'not-shorts': 'このタブはショート画面ではありません',
-  'no-target': '送り先が見つかりませんでした',
-  'no-video': '動画が見つかりませんでした',
-  'no-like-button': '高評価ボタンが見つかりませんでした',
-  'unknown-action': '不明な操作です',
+const REASON_KEYS = {
+  'not-shorts': 'errNotShorts',
+  'no-target': 'errNoTarget',
+  'no-video': 'errNoVideo',
+  'no-like-button': 'errNoLike',
+  'unknown-action': 'errUnknown',
 };
 
 function describeFailure(res) {
   const reason = res && res.reason;
-  return REASONS[reason] || `失敗 (${reason || 'unknown'})`;
+  const key = REASON_KEYS[reason];
+  return key ? t(key) : t('errGeneric', [reason || 'unknown']);
 }
 
 function markFailure(badge, title) {

@@ -1,0 +1,50 @@
+{
+  "extDesc": {
+    "message": "Scroll YouTube Shorts with global hotkeys while you game — works in Chrome, Edge and Brave.",
+    "description": "Extension description shown in chrome://extensions and the store listing"
+  },
+  "cmdNext": {
+    "message": "Next Short",
+    "description": "Command description in chrome://extensions/shortcuts"
+  },
+  "cmdPrev": {
+    "message": "Previous Short"
+  },
+  "cmdToggle": {
+    "message": "Play / pause"
+  },
+  "cmdLike": {
+    "message": "Like"
+  },
+  "cmdMute": {
+    "message": "Toggle mute"
+  },
+  "errNoTab": {
+    "message": "No YouTube tab found",
+    "description": "Badge tooltip when no YouTube tab is open"
+  },
+  "errNotShorts": {
+    "message": "This tab is not a Shorts page"
+  },
+  "errNoTarget": {
+    "message": "No Short to move to"
+  },
+  "errNoVideo": {
+    "message": "Video not found"
+  },
+  "errNoLike": {
+    "message": "Like button not found"
+  },
+  "errUnknown": {
+    "message": "Unknown action"
+  },
+  "errGeneric": {
+    "message": "Failed ($reason$)",
+    "description": "Fallback failure message; $reason$ is the internal reason code",
+    "placeholders": {
+      "reason": {
+        "content": "$1"
+      }
+    }
+  }
+}

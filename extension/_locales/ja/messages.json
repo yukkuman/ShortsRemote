@@ -1,0 +1,50 @@
+{
+  "extDesc": {
+    "message": "ゲームをしたまま、グローバルショートカットで YouTube ショートを「次へ / 前へ」送る。",
+    "description": "chrome://extensions とストアに表示される説明"
+  },
+  "cmdNext": {
+    "message": "次のショートへ",
+    "description": "chrome://extensions/shortcuts に出るコマンド説明"
+  },
+  "cmdPrev": {
+    "message": "前のショートへ"
+  },
+  "cmdToggle": {
+    "message": "再生 / 一時停止"
+  },
+  "cmdLike": {
+    "message": "高評価"
+  },
+  "cmdMute": {
+    "message": "ミュート切替"
+  },
+  "errNoTab": {
+    "message": "YouTube のタブが見つかりません",
+    "description": "YouTube のタブが無いときのバッジ説明"
+  },
+  "errNotShorts": {
+    "message": "このタブはショート画面ではありません"
+  },
+  "errNoTarget": {
+    "message": "送り先が見つかりませんでした"
+  },
+  "errNoVideo": {
+    "message": "動画が見つかりませんでした"
+  },
+  "errNoLike": {
+    "message": "高評価ボタンが見つかりませんでした"
+  },
+  "errUnknown": {
+    "message": "不明な操作です"
+  },
+  "errGeneric": {
+    "message": "失敗（$reason$）",
+    "description": "原因コードが未知のときの表示。$reason$ に内部コードが入る",
+    "placeholders": {
+      "reason": {
+        "content": "$1"
+      }
+    }
+  }
+}

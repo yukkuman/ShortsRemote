@@ -1,41 +1,16 @@
 # ShortUp — YouTube Shorts Remote
 
-Scroll YouTube Shorts with a key press while you game. No background app, no keyboard hook.
-
 [日本語](README.md) | **English**
 
-- **No extra runtime.** No AutoHotkey, no `WH_KEYBOARD_LL` hook — Chrome registers one global hotkey for us
-- **Works in Chrome, Edge and Brave** (one Chromium extension)
-- **Works while a game has focus**
-
-## How it works
-
-```
-[game has focus]
-   │ Ctrl+Shift+2   (a hotkey Windows reserves for Chrome)
-   ▼
-service-worker.js   chrome.commands.onCommand
-   │ pick the tab that has a Short open, then sendMessage
-   ▼
-content.js          ytd-shorts.loadVideo(...) to advance one Short
-```
-
-Keyboard hooks are the thing anti-cheat software tends to flag, so this extension deliberately
-avoids them: Chrome only registers a global hotkey through the documented OS API, and the
-extension never installs a background process. (This is not a guarantee — verify in your own game.)
+Scroll YouTube Shorts with a key press while you game. No background app and no keyboard hook —
+Chrome just registers one global hotkey for us (works in Chrome, Edge and Brave).
 
 ## Install
 
-Enable developer mode, then load the `extension` folder from this repository.
+Open `chrome://extensions` (`edge://extensions` on Edge, `brave://extensions` on Brave), turn on
+Developer mode, choose "Load unpacked" and pick the `extension` folder.
 
-| Browser | Steps |
-|---|---|
-| Chrome | `chrome://extensions` → Developer mode → "Load unpacked" → `extension` |
-| Edge | `edge://extensions` → Developer mode → "Load unpacked" → `extension` |
-| Brave | `brave://extensions` → Developer mode → "Load unpacked" → `extension` |
-
-Keep one tab open on `youtube.com/shorts` afterwards. Tabs that were already open before you
-installed the extension still work — the content script is injected on the next key press.
+Keep a tab open on `youtube.com/shorts` on a second monitor and run your game in **borderless windowed** mode.
 
 ## Default keys
 
@@ -49,88 +24,43 @@ installed the extension still work — the content script is injected on the nex
 
 ## Changing keys
 
-Open `chrome://extensions/shortcuts` (`edge://extensions/shortcuts` on Edge) and edit each ShortUp row.
+Edit the rows in `chrome://extensions/shortcuts`. Make sure the scope is **Global** — with "Chrome"
+the shortcut only fires while the browser is focused.
 
-- Make sure the scope is **Global**. With "Chrome" the shortcut only fires while the browser is focused.
-- Chrome limits which keys can be bound:
+Chrome only accepts combinations that include **`Ctrl` or `Alt`** (`F1`–`F12`, numpad and bare keys
+without a modifier are not selectable). **Avoid keys your game uses** — a globally registered key is
+consumed by the OS and never reaches the game.
 
-| Item | Limitation |
-|---|---|
-| Modifiers | `Ctrl` or `Alt` is required (`Ctrl+Alt` together is not allowed) |
-| Usable keys | `A`–`Z`, `0`–`9`, arrows, `PageUp/Down`, `Home/End`, `Insert/Delete`, `Space`, `Tab`, `,` `.` |
-| Unusable | `F1`–`F12`, numpad, any bare key without a modifier (exception: the four media keys) |
-| Count | At most four suggested shortcuts in the manifest; add more from the screen above |
+## Notes
 
-**Do not bind keys your game uses.** A globally registered hotkey is consumed by the OS, so the
-game never receives that key.
-
-## Usage
-
-1. Put the Shorts tab on a second monitor and leave it un-minimised
-2. Run your game in **borderless windowed / windowed** mode (exclusive fullscreen cannot be covered)
-3. Press the key while playing — the feed advances one Short
-
-## Gotchas
-
-- **Two Chromium browsers running at once cannot both hold the same global hotkey.** The one started
-  first wins; the other shows an empty field in `chrome://extensions/shortcuts`. If you really need
-  both, set one of them to "Chrome" scope.
-- **Holding a key does not repeat.** Windows global hotkeys fire once per press.
-- If the Shorts tab is a background tab or minimised, advancing may still work, but it depends on the
-  environment. Bring the tab to the front if it does not.
-- **After updating the extension, press "Reload" in `chrome://extensions`.** It is loaded unpacked,
-  so it does not auto-update.
+- Two Chromium browsers running at once cannot both hold the same key; the one started first wins
+- Holding a key does not repeat (it fires once per press)
+- After updating the extension, press "Reload" in `chrome://extensions` (unpacked extensions do not auto-update)
 
 ## Troubleshooting
 
-A failed action leaves a badge on the icon that **stays until the next success** (a badge that flashes
-for a second is invisible while you game). Hover the icon to read the reason.
+A failed action leaves a `!` or `?` badge on the icon until the next success. Hover the icon to read the reason.
 
 | Symptom | Fix |
 |---|---|
-| `!` badge stays | The action failed. Check that a tab is open on `youtube.com/shorts`, then press again |
-| `?` badge stays | No YouTube tab found. Keep a Shorts tab open |
-| Nothing happens | Check the key is assigned in `chrome://extensions/shortcuts` and the scope is Global |
+| `!` badge stays | Check that a tab is open on `youtube.com/shorts`, then press again |
+| `?` badge stays | No YouTube tab was found |
+| Nothing happens | Check the key and scope in `chrome://extensions/shortcuts` |
 | A game key stopped working | ShortUp is consuming it. Bind something else |
-| Shorts stop advancing | Possibly a YouTube DOM change. Update `SEL` in `content.js` |
 
-## Development
+## How it works
 
-- Synthetic key events (`dispatchEvent(new KeyboardEvent(...))`) carry `isTrusted=false` and may be
-  ignored by YouTube, so this extension manipulates the DOM directly.
-- Advancing has four fallbacks:
-  1. `ytd-shorts.loadVideo(index)` (the current virtualised list API)
-  2. scrolling `#shorts-inner-container` by one slot
-  3. clicking the legacy `#navigation-button-down` / `#navigation-button-up` buttons
-  4. scrolling `#shorts-container` by one viewport
-- UI strings follow the browser language (`_locales/en`, `_locales/ja`). To add a language, drop in
-  `_locales/<code>/messages.json`.
+Game → `chrome.commands` (global) → service worker → content script → `ytd-shorts.loadVideo()`.
+There is no keyboard hook because hooks are what anti-cheat software tends to flag (not a guarantee —
+verify in your own game).
+
+- Advancing falls back four deep: `loadVideo` → slot scroll → legacy nav buttons → container scroll
+- Synthetic key events carry `isTrusted=false` and may be ignored, so the DOM is manipulated directly
+- UI language follows the browser (`_locales/ja`, `_locales/en`)
 
 ```bash
-node tests/smoke.js   # behaviour of content.js against a stub DOM
-node tests/i18n.js    # manifest __MSG__ / getMessage keys vs _locales
+node tests/smoke.js   # behaviour of content.js
+node tests/i18n.js    # locale consistency
 ```
 
-Layout:
-
-```
-extension/
-├─ manifest.json      five commands (four with default keys, all global: true)
-├─ service-worker.js  command → tab selection → sendMessage
-├─ content.js         DOM operations (next/prev/play/mute/like)
-├─ _locales/          en / ja messages.json
-└─ icons/
-tests/
-├─ smoke.js           behaviour tests for content.js (node tests/smoke.js)
-└─ i18n.js            locale / __MSG__ consistency (node tests/i18n.js)
-tools/
-└─ make-icons.ps1     regenerates icons/
-```
-
-## License
-
-MIT — see [LICENSE](LICENSE).
-
-There is no background service and no network access: the extension only needs `tabs` (to pick the
-target tab), `scripting` (to inject into tabs opened before install) and access to youtube.com.
-Nothing leaves your machine.
+MIT — see [LICENSE](LICENSE). The extension ID is pinned by `key` in `manifest.json`.

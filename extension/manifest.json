@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "ShortUp — Shorts Remote",
-  "version": "0.3.0",
+  "name": "ShortsRemote",
+  "version": "0.3.1",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu+fzqCh0acbLgdvAkEk0BTgfzPZ8SNWr6UP+N0Ufd77yMk4o5+A15lbeqVdYSEFdQek6ithAvp8F6V4sc7tzs6PR02qT5ba7BhBzDO32t/vP5n3WLuP8U4kvwFfOeDk8/jhWp2nS2i8c6wXAPCWcRNKd97hjTA/BtikHbV9mVk0sw056hZqZxNzkFt3pgX8AM5khxhB54Fi2SJGLh6zGq5eyPPtdBNalojkCOItYilug4i/VLevE9TQpzjddwNVMXqcayrWoMxqzh0Dn2Tg4gSZV0tzJDCkxTrvJvOoZnLF5XonoUnLKD9ucHhuXRkeAmN25SZOGR+Nn4VaYW7lKQwIDAQAB",
   "default_locale": "en",
   "description": "__MSG_extDesc__",
@@ -19,7 +19,7 @@
     }
   ],
   "action": {
-    "default_title": "ShortUp",
+    "default_title": "ShortsRemote",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",

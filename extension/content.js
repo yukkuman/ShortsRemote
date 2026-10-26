@@ -1,4 +1,4 @@
-// ShortUp: ショートの「次へ / 前へ」などを実際に動かす部分。
+// ShortsRemote: ショートの「次へ / 前へ」などを実際に動かす部分。
 //
 // 設計メモ:
 //   合成キーイベント（dispatchEvent(new KeyboardEvent(...))）は isTrusted=false になり
@@ -10,8 +10,8 @@
   'use strict';
 
   // 宣言的注入と、拡張導入後に executeScript で注入される場合の二重登録を防ぐ
-  if (globalThis.__shortupLoaded) return;
-  globalThis.__shortupLoaded = true;
+  if (globalThis.__shortsRemoteLoaded) return;
+  globalThis.__shortsRemoteLoaded = true;
 
   const SEL = {
     root: 'ytd-shorts',
@@ -148,7 +148,7 @@
   }
 
   chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-    if (!message || message.type !== 'shortup') return;
+    if (!message || message.type !== 'shortsremote') return;
     try {
       sendResponse(run(message.action));
     } catch (err) {

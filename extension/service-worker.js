@@ -1,4 +1,4 @@
-// ShortUp: グローバルショートカットを YouTube タブへ中継する。
+// ShortsRemote: グローバルショートカットを YouTube タブへ中継する。
 // ここでは DOM を触らない（触れない）。実際の操作は content.js 側で行う。
 
 const ACTIONS = {
@@ -13,7 +13,7 @@ chrome.commands.onCommand.addListener((command) => {
   const action = ACTIONS[command];
   if (!action) return;
   // 各 chrome API 呼び出しがサービスワーカーの寿命を延ばすので、このまま待って問題ない
-  dispatch(action).catch((err) => console.warn('[ShortUp]', err));
+  dispatch(action).catch((err) => console.warn('[ShortsRemote]', err));
 });
 
 async function dispatch(action) {
@@ -81,7 +81,7 @@ async function pickTab() {
 }
 
 async function send(tabId, action) {
-  const message = { type: 'shortup', action };
+  const message = { type: 'shortsremote', action };
   try {
     return await chrome.tabs.sendMessage(tabId, message);
   } catch (_) {
@@ -118,10 +118,10 @@ function describeFailure(res) {
 function markFailure(badge, title) {
   chrome.action.setBadgeBackgroundColor({ color: '#c62828' });
   chrome.action.setBadgeText({ text: badge });
-  chrome.action.setTitle({ title: `ShortUp — ${title}` });
+  chrome.action.setTitle({ title: `ShortsRemote — ${title}` });
 }
 
 function clearFailure() {
   chrome.action.setBadgeText({ text: '' });
-  chrome.action.setTitle({ title: 'ShortUp' });
+  chrome.action.setTitle({ title: 'ShortsRemote' });
 }

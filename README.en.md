@@ -1,4 +1,4 @@
-# ShortUp — YouTube Shorts Remote
+# ShortsRemote
 
 [日本語](README.md) | **English**
 
@@ -37,7 +37,7 @@ registered key is consumed by the OS and never reaches that app.
 
 - Two Chromium browsers running at once cannot both hold the same key; the one started first wins
 - Next/previous only work while the Shorts tab is the **visible tab of its window** (YouTube will not
-  switch the video in a hidden tab). ShortUp activates that tab for you when you press the key;
+  switch the video in a hidden tab). ShortsRemote activates that tab for you when you press the key;
   a minimised window has to be restored manually
 - Holding a key does not repeat (it fires once per press)
 - After updating the extension, press "Reload" in `chrome://extensions` (unpacked extensions do not auto-update)
@@ -51,6 +51,6 @@ A failed action leaves a `!` or `?` badge on the icon until the next success. Ho
 | `!` badge stays | Check that a tab is open on `youtube.com/shorts`, then press again |
 | `?` badge stays | No YouTube tab was found |
 | Nothing happens | Check the key and scope in `chrome://extensions/shortcuts` |
-| A key stopped working in another app | ShortUp is consuming it. Bind something else |
+| A key stopped working in another app | ShortsRemote is consuming it. Bind something else |
 
 MIT — see [LICENSE](LICENSE). The extension ID is pinned by `key` in `manifest.json`.

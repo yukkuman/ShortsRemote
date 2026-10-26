@@ -107,7 +107,7 @@ function makeEnv(options) {
     send(action) {
       let result = null;
       for (const listener of listeners) {
-        listener({ type: 'shortup', action }, {}, (res) => {
+        listener({ type: 'shortsremote', action }, {}, (res) => {
           result = res;
         });
       }

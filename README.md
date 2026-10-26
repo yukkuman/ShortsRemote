@@ -1,4 +1,4 @@
-# ShortUp — YouTube Shorts Remote
+# ShortsRemote
 
 **日本語** | [English](README.en.md)
 
@@ -51,6 +51,6 @@ Chrome の制約で、割り当てられるのは **`Ctrl` か `Alt` を含む�
 | `!` が残る | ショート画面のタブがあるか確認して押し直す |
 | `?` が残る | YouTube のタブが見つかっていない |
 | 何も起きない | `chrome://extensions/shortcuts` でキーとスコープを確認 |
-| 特定のキーが他のアプリで効かない | ShortUp が横取りしている。別のキーに変える |
+| 特定のキーが他のアプリで効かない | ShortsRemote が横取りしている。別のキーに変える |
 
 MIT（[LICENSE](LICENSE)）。拡張 ID は `manifest.json` の `key` で固定済みです。

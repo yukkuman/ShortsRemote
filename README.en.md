@@ -2,8 +2,8 @@
 
 [日本語](README.md) | **English**
 
-Scroll YouTube Shorts with a key press while you game. No background app and no keyboard hook —
-Chrome just registers one global hotkey for us (works in Chrome, Edge and Brave).
+Scroll YouTube Shorts with a key press while you game. No background app and no keyboard hook
+(which keeps anti-cheat software out of the picture). Works in Chrome, Edge and Brave.
 
 ## Install
 
@@ -47,20 +47,5 @@ A failed action leaves a `!` or `?` badge on the icon until the next success. Ho
 | `?` badge stays | No YouTube tab was found |
 | Nothing happens | Check the key and scope in `chrome://extensions/shortcuts` |
 | A game key stopped working | ShortUp is consuming it. Bind something else |
-
-## How it works
-
-Game → `chrome.commands` (global) → service worker → content script → `ytd-shorts.loadVideo()`.
-There is no keyboard hook because hooks are what anti-cheat software tends to flag (not a guarantee —
-verify in your own game).
-
-- Advancing falls back four deep: `loadVideo` → slot scroll → legacy nav buttons → container scroll
-- Synthetic key events carry `isTrusted=false` and may be ignored, so the DOM is manipulated directly
-- UI language follows the browser (`_locales/ja`, `_locales/en`)
-
-```bash
-node tests/smoke.js   # behaviour of content.js
-node tests/i18n.js    # locale consistency
-```
 
 MIT — see [LICENSE](LICENSE). The extension ID is pinned by `key` in `manifest.json`.

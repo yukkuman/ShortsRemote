@@ -137,18 +137,17 @@ tests/
 ├─ smoke.js            content.js の動作テスト（node tests/smoke.js）
 └─ i18n.js             ロケールと __MSG_ 参照の整合チェック（node tests/i18n.js）
 tools/
-├─ make-icons.ps1      アイコン生成
-└─ extension-id.js     manifest の key から拡張IDを計算
+└─ make-icons.ps1      アイコン生成
 ```
 
-## 公開する場合
+## 公開について
 
-- Chrome ウェブストア / Edge アドオンに出すと、Brave からも Chrome ウェブストア経由で入れられます
-- 拡張 ID は `manifest.json` の `key` で固定済みです（ショートカット設定がストア版に引き継がれます）
+ストアには出さず、このリポジトリを公開するだけの形にしています。
+
+- 拡張 ID は `manifest.json` の `key` で固定済みです（`cpjflhhcagpehibpdnbjmdejmclbioon`）。
+  この値を変えるとショートカット設定が引き継がれません
 - ライセンスは MIT（`LICENSE`）
-- 申請時は権限の用途説明を求められます。`tabs` は送り先タブの選択、
-  `host_permissions`（youtube.com）はページ操作、`scripting` は拡張導入前から開いていたタブへの
-  後追い注入に使っています
-- 手順は [RELEASING.md](RELEASING.md)、プライバシー表記は [PRIVACY.md](PRIVACY.md)、
-  変更履歴は [CHANGELOG.md](CHANGELOG.md)
-- パッケージ作成は `tools/package.ps1`（`dist/shortup-v<version>.zip` を作ります）
+- 権限は `tabs`（送り先タブの特定）、`scripting`（導入前から開いていたタブへの後追い注入）、
+  `host_permissions`（YouTube ページの DOM 操作）の3つだけです
+- ストア公開に必要な文書（プライバシー表記・申請手順・申請用 zip の作り方）は、
+  必要になった時点で作り直せます（削除前のコミットに残っています）

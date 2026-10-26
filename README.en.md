@@ -124,12 +124,13 @@ tests/
 ├─ smoke.js           behaviour tests for content.js (node tests/smoke.js)
 └─ i18n.js            locale / __MSG__ consistency (node tests/i18n.js)
 tools/
-├─ make-icons.ps1     regenerates icons/
-├─ package.ps1        builds dist/shortup-v<version>.zip for the stores
-└─ extension-id.js    derives the extension ID from the manifest key
+└─ make-icons.ps1     regenerates icons/
 ```
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Privacy notes: [PRIVACY.md](PRIVACY.md).
-Release steps: [RELEASING.md](RELEASING.md).
+MIT — see [LICENSE](LICENSE).
+
+There is no background service and no network access: the extension only needs `tabs` (to pick the
+target tab), `scripting` (to inject into tabs opened before install) and access to youtube.com.
+Nothing leaves your machine.

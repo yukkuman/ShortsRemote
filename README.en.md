@@ -2,15 +2,17 @@
 
 [日本語](README.md) | **English**
 
-Scroll YouTube Shorts with a key press while you game. No background app and no keyboard hook
-(which keeps anti-cheat software out of the picture). Works in Chrome, Edge and Brave.
+Drive YouTube Shorts with a key press without bringing the tab to the front. Global hotkeys, so it
+works whatever has focus — a game, an editor, OBS. No background app and no keyboard hook (so it
+does not trip anti-cheat software). Works in Chrome, Edge and Brave.
 
 ## Install
 
 Open `chrome://extensions` (`edge://extensions` on Edge, `brave://extensions` on Brave), turn on
 Developer mode, choose "Load unpacked" and pick the `extension` folder.
 
-Keep a tab open on `youtube.com/shorts` on a second monitor and run your game in **borderless windowed** mode.
+Keep a tab open on `youtube.com/shorts` without focusing it — put it on a second monitor if you want
+to watch. If you also play games, run them in **borderless windowed** mode.
 
 ## Default keys
 
@@ -28,8 +30,8 @@ Edit the rows in `chrome://extensions/shortcuts`. Make sure the scope is **Globa
 the shortcut only fires while the browser is focused.
 
 Chrome only accepts combinations that include **`Ctrl` or `Alt`** (`F1`–`F12`, numpad and bare keys
-without a modifier are not selectable). **Avoid keys your game uses** — a globally registered key is
-consumed by the OS and never reaches the game.
+without a modifier are not selectable). **Avoid keys your game or other apps use** — a globally
+registered key is consumed by the OS and never reaches that app.
 
 ## Notes
 
@@ -46,6 +48,6 @@ A failed action leaves a `!` or `?` badge on the icon until the next success. Ho
 | `!` badge stays | Check that a tab is open on `youtube.com/shorts`, then press again |
 | `?` badge stays | No YouTube tab was found |
 | Nothing happens | Check the key and scope in `chrome://extensions/shortcuts` |
-| A game key stopped working | ShortUp is consuming it. Bind something else |
+| A key stopped working in another app | ShortUp is consuming it. Bind something else |
 
 MIT — see [LICENSE](LICENSE). The extension ID is pinned by `key` in `manifest.json`.

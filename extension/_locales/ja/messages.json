@@ -1,7 +1,7 @@
 {
   "extDesc": {
-    "message": "ゲームをしたまま、グローバルショートカットで YouTube ショートを「次へ / 前へ」送る。",
-    "description": "chrome://extensions とストアに表示される説明"
+    "message": "ショートのタブを前面に出さなくても、グローバルショートカットで「次へ / 前へ」を送れる。",
+    "description": "chrome://extensions に表示される説明"
   },
   "cmdNext": {
     "message": "次のショートへ",

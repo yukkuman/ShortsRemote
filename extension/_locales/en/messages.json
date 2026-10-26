@@ -1,7 +1,7 @@
 {
   "extDesc": {
-    "message": "Scroll YouTube Shorts with global hotkeys while you game — works in Chrome, Edge and Brave.",
-    "description": "Extension description shown in chrome://extensions and the store listing"
+    "message": "Scroll YouTube Shorts with global hotkeys — no need to bring the tab to the front.",
+    "description": "Shown in chrome://extensions"
   },
   "cmdNext": {
     "message": "Next Short",

@@ -1,0 +1,12 @@
+# 依存やビルド生成物
+node_modules/
+dist/
+
+# ストア申請用の zip、ローカルで作った crx、拡張の署名鍵
+*.zip
+*.crx
+*.pem
+
+# OS
+Thumbs.db
+.DS_Store

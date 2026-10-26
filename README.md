@@ -1,5 +1,7 @@
 # ShortUp — YouTube Shorts Remote
 
+**日本語** | [English](README.en.md)
+
 ゲーム（FPS など）をしたまま、キーを押すだけで YouTube ショートを「次へ / 前へ」送る拡張機能です。
 
 - **追加の常駐ソフトなし**。AutoHotkey もキーボードフックも使いません
@@ -146,4 +148,7 @@ tools/
 - ライセンスは MIT（`LICENSE`）
 - 申請時は権限の用途説明を求められます。`tabs` は送り先タブの選択、
   `host_permissions`（youtube.com）はページ操作、`scripting` は拡張導入前から開いていたタブへの
-  後追い注入に使っています。zip は `extension` フォルダをそのまま固めたもので構いません
+  後追い注入に使っています
+- 手順は [RELEASING.md](RELEASING.md)、プライバシー表記は [PRIVACY.md](PRIVACY.md)、
+  変更履歴は [CHANGELOG.md](CHANGELOG.md)
+- パッケージ作成は `tools/package.ps1`（`dist/shortup-v<version>.zip` を作ります）

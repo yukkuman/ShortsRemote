@@ -1,0 +1,26 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Syntax check
+        run: |
+          node --check extension/service-worker.js
+          node --check extension/content.js
+
+      - name: Locale consistency
+        run: node tests/i18n.js
+
+      - name: Behavior tests
+        run: node tests/smoke.js
